@@ -88,7 +88,14 @@ class Parser:
                 continue
 
             else:
-                blocks.append(StringGenerator(char))
+                atom = char
+                while atom in string.ascii_letters + string.digits + "_":
+                    current_index += 1
+                    if current_index < len(text):
+                        atom += text[current_index]
+                    else:
+                        break
+                blocks.append(StringGenerator(atom))
             current_index += 1
         return GroupGenerator(blocks) if blocks else StringGenerator("")
 
