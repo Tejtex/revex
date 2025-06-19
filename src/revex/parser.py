@@ -89,12 +89,14 @@ class Parser:
 
             else:
                 atom = char
-                while atom in string.ascii_letters + string.digits + "_":
+                current_index += 1
+                while (
+                    current_index < len(text)
+                    and text[current_index]
+                    in string.ascii_letters + string.digits + "_"
+                ):
+                    atom += text[current_index]
                     current_index += 1
-                    if current_index < len(text):
-                        atom += text[current_index]
-                    else:
-                        break
                 blocks.append(StringGenerator(atom))
                 continue
             current_index += 1
