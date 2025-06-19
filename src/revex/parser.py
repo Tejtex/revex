@@ -44,7 +44,15 @@ class Parser:
                 blocks.append(OrGenerator(left, right))
             elif char == "(":
                 start_index = current_index + 1
-                while text[current_index] != ")" and current_index < len(text):
+                level = 0
+                current_index += 1
+                while current_index < len(text):
+                    if text[current_index] == "(":
+                        level += 1
+                    elif text[current_index] == ")":
+                        if level == 0:
+                            break
+                        level -= 1
                     current_index += 1
                 if current_index >= len(text):
                     raise ValueError("Unclosed group in regex")
