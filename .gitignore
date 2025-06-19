@@ -1,4 +1,3 @@
 .pytest_cache/
 __pycache__/
 *.py[cod]
-.pre-commit-config.yaml
