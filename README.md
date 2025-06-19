@@ -2,6 +2,9 @@
 
 [![Contributions Welcome](https://img.shields.io/badge/Contributions-welcome-brightgreen.svg?style=flat)](https://github.com/tejtex/revex/issues)
 [![Discord](https://img.shields.io/discord/000000000000000000?label=Discord&logo=discord&color=7289da)](https://discord.gg/yWaxzJenSW)
+[![Black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/twoje/repo/main.svg)](https://results.pre-commit.ci/latest/github/tejtex/revex/main)
+
 **Revex** is a powerful Python library designed to parse simplified regex patterns and **generate random strings that match these patterns** — basically, the reverse of traditional regex matching.
 
 ## Overview
