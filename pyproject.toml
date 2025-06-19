@@ -1,0 +1,11 @@
+[project]
+name = "revex"
+version = "0.1.0"
+
+[tool.setuptools]
+packages = ["revex"]
+package-dir = {"" = "src"}
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
