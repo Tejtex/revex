@@ -96,6 +96,7 @@ class Parser:
                     else:
                         break
                 blocks.append(StringGenerator(atom))
+                continue
             current_index += 1
         return GroupGenerator(blocks) if blocks else StringGenerator("")
 
