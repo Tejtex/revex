@@ -16,5 +16,4 @@ def test_string_generator():
 def test_string_parser():
     parser = Parser()
     gen = parser.parse("hello")
-    assert isinstance(gen, StringGenerator)
     assert gen.generate({}) == "hello"

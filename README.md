@@ -16,6 +16,11 @@ Regular expressions (regex) are widely used for pattern matching and validation.
 
 - Educational purposes to understand regex behavior by example
 
+## Instalation
+```bash
+pip install -e .
+```
+
 ## Usage
 ```python
 from revex.parser import Parser

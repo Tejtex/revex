@@ -5,6 +5,12 @@ class Generator:
     def generate(self, config) -> str:
         raise NotImplementedError("Subclasses should implement this method")
 
+    def repr_tree(self, indent=0) -> str:
+        raise NotImplementedError()
+
+    def __repr__(self):
+        return self.repr_tree()
+
 
 class OrGenerator(Generator):
     def __init__(self, left, right):
@@ -16,6 +22,14 @@ class OrGenerator(Generator):
             return self.left.generate(config)
         else:
             return self.right.generate(config)
+
+    def repr_tree(self, indent=0):
+        pad = " " * indent
+        return (
+            f"{pad}Or\n"
+            f"{self.left.repr_tree(indent + 4)}\n"
+            f"{self.right.repr_tree(indent + 4)}"
+        )
 
 
 class RepeatGenerator(Generator):
@@ -30,6 +44,13 @@ class RepeatGenerator(Generator):
         num_repeats = random.randint(self.min_repeats, self.max_repeats)
         return "".join(self.generator.generate(config) for _ in range(num_repeats))
 
+    def repr_tree(self, indent=0):
+        pad = " " * indent
+        return (
+            f"{pad}Repeat min={self.min_repeats} max={self.max_repeats}\n"
+            f"{self.generator.repr_tree(indent + 4)}"
+        )
+
 
 class StringGenerator(Generator):
     def __init__(self, value: str):
@@ -37,6 +58,10 @@ class StringGenerator(Generator):
 
     def generate(self, config) -> str:
         return self.value
+
+    def repr_tree(self, indent=0):
+        pad = " " * indent
+        return f"{pad}String('{self.value}')"
 
 
 class GroupGenerator(Generator):
@@ -46,6 +71,11 @@ class GroupGenerator(Generator):
     def generate(self, config) -> str:
         return "".join(map(lambda g: g.generate(config), self.generators))
 
+    def repr_tree(self, indent=0):
+        pad = " " * indent
+        child_reprs = [g.repr_tree(indent + 4) for g in self.generators]
+        return f"{pad}Group\n" + "\n".join(child_reprs)
+
 
 class ClassGenerator(Generator):
     def __init__(self, characters: str):
@@ -53,3 +83,7 @@ class ClassGenerator(Generator):
 
     def generate(self, config) -> str:
         return random.choice(self.characters)
+
+    def repr_tree(self, indent=0):
+        pad = " " * indent
+        return f"{pad}Class[{self.characters}]"

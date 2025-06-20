@@ -1,5 +1,6 @@
 import click
 import revex.parser
+import json
 
 VERSION = "1.0.0"
 
@@ -13,7 +14,12 @@ VERSION = "1.0.0"
     default='{"max_repeats": 3}',
     help="Configuration for the generator in JSON format.",
 )
-def main(input, version, config):
+@click.option(
+    "--debug",
+    is_flag=True,
+    help="Enable debug mode for more verbose output.",
+)
+def main(input, version, config, debug):
     """Revex CLI tool."""
 
     if version:
@@ -24,8 +30,10 @@ def main(input, version, config):
         parser = revex.parser.Parser()
         # try:
         generator = parser.parse(input)
-        result = generator.generate({"max_repeats": 3})
-        click.echo(f"Generated string: {result}")
+        result = generator.generate(json.loads(config))
+        if debug:
+            click.echo(f"Debug AST:\n {generator}")
+        click.echo(f"{result}")
         # except Exception as e:
         #     click.echo(f"Error parsing input: {e}")
 

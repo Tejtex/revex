@@ -42,6 +42,7 @@ class Parser:
                 current_index += 1
                 right = self.parse(text[current_index:])
                 blocks.append(OrGenerator(left, right))
+                return GroupGenerator(blocks)
             elif char == "(":
                 start_index = current_index + 1
                 level = 0
@@ -96,17 +97,7 @@ class Parser:
                 continue
 
             else:
-                atom = char
-                current_index += 1
-                while (
-                    current_index < len(text)
-                    and text[current_index]
-                    in string.ascii_letters + string.digits + "_"
-                ):
-                    atom += text[current_index]
-                    current_index += 1
-                blocks.append(StringGenerator(atom))
-                continue
+                blocks.append(StringGenerator(char))
             current_index += 1
         return GroupGenerator(blocks) if blocks else StringGenerator("")
 
